@@ -60,17 +60,29 @@ html, body {
   background-color: #ffbd39;
 }
 
-
-/* Animation styles */
 #typing-animation {
   position: relative;
   font-size: 30px;
   font-weight: bold;
   color: rgb(255, 255, 255);
-  overflow: hidden;
-  white-space: nowrap;
-  animation: typing 3s steps(20, end) infinite;
+  transition: opacity 0.3s ease-in-out;
 }
+
+#typing-animation.fade-out {
+  opacity: 0;
+}
+
+/*
+#typing-animation {
+	position: relative;
+	font-size: 30px;
+	font-weight: bold;
+	color: rgb(255, 255, 255);
+	overflow: hidden;
+	white-space: nowrap;
+	animation: typing 3s steps(20, end) infinite;
+}
+*/
 
 #typing-animation:before {
   content: "";
@@ -157,42 +169,74 @@ html, body {
 						<span id="typing-animation"></span>
 
 						<script>
+							// Initialize the elements and text
+							const typingAnimationElement = document.getElementById('typing-animation');
+							const typingTexts = [
+								'Business Executive',
+								'Data Analyst',
+								'Computer Engineer',
+							];
 
-						// Initialize the typing animation
-						const typingAnimationElement = document.getElementById('typing-animation');
+							let currentIndex = 0;
 
-						// Create an array of typing text
-						const typingTexts = [
-						'Business Executive  ',
-						'Data Analyst  ',
-						'Computer Engineer   ',
-						];
+							// Function to change the text with a fade effect
+							function changeText() {
+								typingAnimationElement.classList.add('fade-out');
+								setTimeout(() => {
+									currentIndex = (currentIndex + 1) % typingTexts.length;
+									typingAnimationElement.textContent = typingTexts[currentIndex];
+									typingAnimationElement.classList.remove('fade-out');
+								}, 300);
+							}
 
-						// Create a function to display the typing animation for a given text
-						function playTypingAnimation(text) {
-						// Loop through each character and add it to the element
-						for (let i = 0; i < text.length; i++) {
-							setTimeout(() => {
-							typingAnimationElement.textContent += text[i];
-							}, i * 200); // Increase the delay to slow down the typing animation
-						}
+							// Set the initial text
+							typingAnimationElement.textContent = typingTexts[0];
 
-						// Once the animation is complete, reset the text and start over
-						setTimeout(() => {
-							typingAnimationElement.textContent = '';
-							playTypingAnimation(typingTexts[(typingTexts.indexOf(text) + 1) % typingTexts.length]);
-						}, text.length * 200);
-						}
-
-						// Start the typing animation loop
-						playTypingAnimation(typingTexts[0]);
-
+							// Call the changeText function every 2 seconds
+							setInterval(changeText, 2000);
 						</script>
 
+						<!-- this is the old typing animation script
+						<script>
+							// Typing animation for the #typing-animation element
+							// This script cycles through an array of titles, typing each out character by character,
+							// then erasing and moving to the next title in the array.
+
+							// Get the element where the animation will appear
+							const typingAnimationElement = document.getElementById('typing-animation');
+							
+							// Array of text strings to display
+							const typingTexts = [
+								'Business Executive  ',
+								'Data Analyst  ',
+								'Computer Engineer   ',
+							];
+
+							// Function to play typing animation for a given text
+							function playTypingAnimation(text) {
+								// Loop through each character and add it to the element
+								for (let i = 0; i < text.length; i++) {
+									setTimeout(() => {
+										typingAnimationElement.textContent += text[i];
+									}, i * 200); // Delay for typing effect
+								}
+
+								// After typing is complete, reset and start next text
+								setTimeout(() => {
+									typingAnimationElement.textContent = '';
+									playTypingAnimation(typingTexts[(typingTexts.indexOf(text) + 1) % typingTexts.length]);
+								}, text.length * 200);
+							}
+
+							// Start the animation loop
+							playTypingAnimation(typingTexts[0]);
+						</script> 
+						-->
+
 						<br>
 						<br>
-			            <h2>Business Executive</h2>
-						<!-- <h2 class="d-flex" style="margin-bottom: 0">With over 10 Month of experience</h2> -->
+						<h2>Business Executive</h2>
+						<h2 class="d-flex" style="margin-bottom: 0">With over 10 Month of experience</h2>
 						<!-- <br> -->
 			            <p><a href="https://www.linkedin.com/in/theaniketkumbhar/" class="btn btn-primary py-3 px-4" target="_blank">Linkedin</a> 
 							<a href="https://github.com/Aniket182001" class="btn btn-white btn-outline-white py-3 px-4" target="_blank">GitHub</a></p>
